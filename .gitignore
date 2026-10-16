@@ -1,0 +1,21 @@
+# Python's installed packages: recreate with  pip install -r requirements.txt
+venv/
+
+# Temporary files Python and pytest make while running
+__pycache__/
+.pytest_cache/
+
+# C++ build output: recreate with cmake (see cpp_sender/CMakeLists.txt)
+cpp_sender/build/
+
+# Made by the training scripts: recreate by running the two prepare scripts, then train_model.py
+data/complete_training_data.csv
+data/combined_test_data.csv
+data/true_rul_per_test_data_cycle.csv
+training/rul_model.pkl
+
+# Personal editor settings
+.vscode/
+
+# Personal working notes
+docs/notes.md
