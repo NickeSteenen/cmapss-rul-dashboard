@@ -39,7 +39,7 @@ The program is split into four files. `main.cpp` runs the program from start to 
 
 `udp_sender.cpp` sends each frame as one UDP packet. It starts the Windows networking when it is created and shuts it down when it is destroyed, so the networking is closed properly even when an error stops the program.
 
-If anything goes wrong, for example if the test data file is missing, the sender prints the error and exits with code 1. The Python backend then shows the error on the Live page.
+If anything goes wrong, for example if the test data file is missing, the sender prints the error and exits with code 1. The Python backend then passes the error on to the Live page, which shows it.
 
 ### 2.2 Python backend
 
@@ -191,7 +191,7 @@ The tests are written in Python and run with `pytest`. There are 29 tests in fou
 - C++ sender integration testing: The C++ sender is executed with selected parts (FD001 engine 1, FD004 engine 7) of the CMAPSS datasets and the packets it sends are compared byte for byte with the same part encoded with Python `cantools`. A further test checks that the sender reports a clear error for an empty data file.
 - Row assembly: packets are fed to the row assembler, which rebuilds the Live page's cycles, in order, in reverse order, with one frame missing and with packets that don't belong to the protocol. Decoded values must equal the CSV values exactly.
 - Backend API: the backend is started as a real program and every endpoint both pages use is called like the dashboard calls it, including the error answers, a double Start, a failing sender and a stream that ends by itself.
-- Live against History: one engine is streamed through the Live page's whole chain, C++ sender, UDP, decoding, prediction and WebSocket, and every live row must equal the same row from the History page's request exactly.
+- Live against History: one engine is streamed through the Live page's whole chain, from the C++ sender over UDP to the decoding, the prediction and the WebSocket. Every live row must exactly equal the same row from the History page's request.
 
 ## 6. Limitations
 
